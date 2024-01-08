@@ -1,4 +1,5 @@
 import { fetchProducts } from "../api.js";
+import { routeChange } from "../router.js";
 
 export default function ProductListPage({ $app }) {
   this.$page = document.createElement("div");
@@ -17,7 +18,7 @@ export default function ProductListPage({ $app }) {
     <ul>
       ${this.state.products
         .map(
-          ({ image, title, price }) => `<li class="Product">
+          ({ id, image, title, price }) => `<li id=${id} class="Product">
       <img src=${image}>
       <div class="Product__info">
         <div>${title}</div>
@@ -36,6 +37,7 @@ export default function ProductListPage({ $app }) {
   this.$page.addEventListener("click", (e) => {
     const $li = e.target.closest(".Product");
     if (!$li) return;
+    routeChange(`/products/${$li.id}`);
   });
 
   this.init();

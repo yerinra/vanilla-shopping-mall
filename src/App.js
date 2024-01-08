@@ -2,6 +2,7 @@ import ProductListPage from "./components/ProductListPage.js";
 import CartPage from "./components/CartPage.js";
 import ProductDetailPage from "./components/ProductDetailPage.js";
 import ErrorPage from "./components/ErrorPage.js";
+import { init } from "./router.js";
 
 export default function App({ $app }) {
   this.route = () => {
@@ -26,5 +27,10 @@ export default function App({ $app }) {
     new ErrorPage({ $app });
   };
 
+  // ROUTE_CHANGE 이벤트 발생 시 마다 App의 this.route 함수가 호출되게 하는 효과
+  init(this.route);
+
   this.route();
+
+  window.addEventListener("popstate", this.route);
 }
