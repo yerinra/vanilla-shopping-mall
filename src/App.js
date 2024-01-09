@@ -23,7 +23,9 @@ export default function App({ $app }) {
       new ProductDetailPage({
         $app,
       });
+      return;
     }
+
     new ErrorPage({ $app });
   };
 

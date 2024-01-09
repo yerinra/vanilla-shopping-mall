@@ -5,7 +5,6 @@ export default function ProductDetailPage({ $app }) {
   this.$page = document.createElement("div");
   this.$page.className = "ProductDetailPage";
 
-  $app.appendChild(this.$page);
   this.state = { product: [], selectedOptions: [] };
 
   this.$page.addEventListener("change", (e) => {
@@ -25,7 +24,6 @@ export default function ProductDetailPage({ $app }) {
         { optionName: e.target.value, quantity: 1 },
       ],
     });
-    // console.log(this.state.selectedOptions);
   });
   this.setState = (newState) => {
     this.state = newState;
@@ -41,7 +39,6 @@ export default function ProductDetailPage({ $app }) {
         { ...this.state.selectedOptions[0], quantity: +e.target.value },
       ],
     });
-    // console.log(this.state.selectedOptions[0].quantity);
   });
 
   this.$page.addEventListener("click", (e) => {
@@ -112,7 +109,13 @@ export default function ProductDetailPage({ $app }) {
   this.init = async () => {
     const productId = +location.pathname.split("/")[2];
     const product = await fetchProduct(productId);
+    // this.$page.innerHTML = "<div>Loading...</div>";
+
     this.setState({ ...this.state, product });
+
+    if (this.state.product) {
+      $app.appendChild(this.$page);
+    }
   };
   this.init();
 }

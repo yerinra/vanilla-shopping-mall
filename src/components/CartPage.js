@@ -74,8 +74,11 @@ export default function CartPage({ $app }) {
     localStorage.removeItem("products_cart");
     routeChange("/");
   });
+
   this.init = () => {
     this.fetchProducts();
+    this.$page.innerHTML =
+      "<h1>장바구니</h1><div>Loading...Please Wait...</div>";
     if (!productsInCart || productsInCart.length == 0) {
       alert("장바구니에 상품이 없습니다.");
       routeChange("/");

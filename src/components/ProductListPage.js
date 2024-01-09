@@ -4,7 +4,6 @@ import { routeChange } from "../router.js";
 export default function ProductListPage({ $app }) {
   this.$page = document.createElement("div");
   this.$page.className = "ProductListPage";
-  $app.appendChild(this.$page);
 
   this.state = { products: [] };
   this.setState = (newState) => {
@@ -31,7 +30,9 @@ export default function ProductListPage({ $app }) {
 
   this.init = async () => {
     const products = await fetchProducts();
+
     this.setState({ products });
+    $app.appendChild(this.$page);
   };
 
   this.$page.addEventListener("click", (e) => {
